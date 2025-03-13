@@ -1,0 +1,28 @@
+# Ignore arquivos do ambiente virtual
+venv/
+.env
+*.pyc
+__pycache__/
+
+# Ignore arquivos do banco de dados local
+db.sqlite3
+*.sqlite3
+
+# Ignore migrações antigas e logs
+*.log
+*.pot
+*.py[co]
+**/__pycache__/
+
+# Ignore credenciais e configurações locais
+.env
+config/settings_local.py
+
+# Ignore arquivos estáticos e media gerados
+staticfiles/
+media/
+
+# Ignore arquivos de IDEs e editores
+.vscode/
+.idea/
+*.swp

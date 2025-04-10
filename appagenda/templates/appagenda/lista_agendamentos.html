@@ -1,0 +1,38 @@
+{% extends "base.html"  %}
+
+{% block title %}Pagina de agendamento {% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+    <h2>Agendamentos</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Cidadão</th>
+                <th>Assunto</th>
+                <th>Data/Hora</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ag in agendamentos %}
+            <tr>
+                <td>{{ ag.cidadao.nome }}</td>
+                <td>{{ ag.assunto }}</td>
+                <td>{{ ag.data_hora }}</td>
+                <td>{{ ag.get_status_display }}</td>
+                <td>
+                    {% if ag.status == 'A' %}
+                        <a href="{% url 'realizar_atendimento' ag.id %}" class="btn btn-success btn-sm">Atender Agora</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="5">Nenhum agendamento encontrado.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

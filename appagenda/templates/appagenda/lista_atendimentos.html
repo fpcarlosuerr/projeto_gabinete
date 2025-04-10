@@ -1,0 +1,48 @@
+{% extends "base.html"  %}
+
+{% block title %}Pagina de agendamento {% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Atendimentos</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#id</th>
+                <th>Cidadão</th>
+                <th>Descrição</th>
+                <th>Data Agendamento</th>
+                <th>Status</th>
+                <th>Agendamento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for atendimento in atendimentos %}
+            <tr>
+                <td>{{ atendimento.id }}</td>
+                <td>{{ atendimento.cidadao.nome }}</td>
+                <td>{{ atendimento.descricao|truncatechars:50 }}</td>
+                <td>{{ atendimento.agendamento.data_hora }}</td>
+                <td>{{ atendimento.get_status_display }}</td>
+                <td>
+                {% if atendimento.agendamento %}
+                    {{ atendimento.agendamento.assunto }} - {{ atendimento.agendamento.data_hora }}
+                {% else %}
+                    Atendimento sem agendamento prévio
+                {% endif %}
+            </td>
+             <td>
+                    {% if atendimento.status != 'R' %}
+                        <a href="{% url 'realizar_atendimento' atendimento.id %}" class="btn btn-success btn-sm">Atender Agora</a>
+                    {% endif %}
+             </td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="4">Nenhum atendimento registrado.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

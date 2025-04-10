@@ -4,12 +4,12 @@
 
 {% block content %}
 
-<h1>Sistema de agendameto de atendimento</h1>
+<h1>Sistema de atendimento de atendimento</h1>
     <div class="container mt-5">
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Agendar</button>
+            {{ form_as_p }}
+            <button type="submit" class="btn btn-primary">Finalizar Atendimento</button>
         </form>
     </div>
 

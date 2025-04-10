@@ -6,18 +6,37 @@
     <form method="POST">
         {% csrf_token %}
         {{form.as_p}}
-        <button type="submit">Salvar</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
     <table class="table table-striped table-sm">
         <tr>
             <td>Nome</td>
             <td>Email</td>
+            <td>Ação</td>
         </tr>
         {% for cid in pessoas %}
         <tr>
             <td>{{cid.nome}}</td>
             <td>{{cid.email}}</td>
+            <td>
+                <a href="{% url 'editar_cidadao' pk=cid.id %}" class="btn btn-primary">Editar</a>
+                <button class="btn btn-danger" onclick="confirmarExclusao('{% url 'excluir_cidadao' pk=cid.id %}')">Excluir</button>
+<!--                <a href="{% url 'excluir_cidadao' pk=cid.id %}" class="btn btn-danger">Excluir</a>-->
+            </td>
         </tr>
         {% endfor %}
     </table>
+    {% block scripts_extra %}
+    <script>
+        function confirmarExclusao(urlExclusao){
+          if(window.confirm("Deseja relamente excluir essa pessoa")){
+             alert("Pessoa Excluida com  Sucesso");
+             window.location.href=urlExclusao;
+          }else{
+              alert("Exclusão cancelada!")
+          }
+        }
+    </script>
+    {% endblock %}
+
 {% endblock %}

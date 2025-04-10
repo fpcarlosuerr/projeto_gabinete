@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cidadao
+from .models import Cidadao, Atendimento, Agendamento
 
 
 class CidadaoForm(forms.ModelForm):
@@ -16,5 +16,27 @@ class CidadaoForm(forms.ModelForm):
         widgets = {
             'nome': forms.TextInput(attrs={'class':'form-control'}),
             'cpf':forms.TextInput(attrs={'class':'form-control'}),
-            'email':forms.EmailInput(attrs={'class':'form-control'}),            
+            'email':forms.EmailInput(attrs={'class':'form-control'}),
+            'data_nascimento':forms.DateInput(attrs={'class':'form-control'}),
+        }
+
+class AgendamentoForm(forms.ModelForm):
+    class Meta:
+        model = Agendamento
+        fields = ['cidadao','assunto','descricao','data_hora']
+        labels = {
+            'cidadao': 'Cidadão',
+            'assunto': 'Assunto',
+            'descricao': 'Descrição Detalhada',
+            'data_hora': 'Data e Hora do Atendimento'
+        }
+
+class AtendimentoForm(forms.ModelForm):
+    class Meta:
+        model = Atendimento
+        fields = ['descricao', 'decisoes','status']
+        labels = {
+            'descricao': 'Descrição do Atendimento',
+            'decisoes': 'Decisões Tomadas',
+            'status': 'Status',
         }
